@@ -13,10 +13,13 @@ source:
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . -vv
+  skip: True  # [win]
 
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - llvm-openmp  # [osx]
+    - libgomp      # [linux]
   host:
     - python
     - pip
