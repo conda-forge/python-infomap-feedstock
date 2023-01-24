@@ -16,8 +16,7 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}  # [not win]
-    - clang                  # [win]
+    - {{ compiler('cxx') }}
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
   host:
