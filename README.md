@@ -241,6 +241,5 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
-* [@TnTo](https://github.com/TnTo/)
 * [@bollwyvl](https://github.com/bollwyvl/)
 
