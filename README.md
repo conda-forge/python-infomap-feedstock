@@ -9,7 +9,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/python-infomap-
 
 Summary: Infomap network clustering algorithm
 
-Documentation: https://mapequation.github.io/infomap/python/
+Documentation: https://mapequation.github.io/infomap/python
 
 Current build status
 ====================
