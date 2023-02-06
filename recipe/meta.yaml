@@ -9,8 +9,7 @@ source:
   sha256: 5fb76e8845b41c80e8a1bc522d518e5b233a1c893db11ebc6a5b3dc68ada711b
 
 build:
-  skip: true  # [win]
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
   entry_points:
     - infomap = infomap:main
@@ -19,7 +18,8 @@ requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - {{ compiler('cxx') }}
+    - {{ compiler('cxx') }}  # [not win]
+    - {{ compiler('m2w64_cxx') }}  # [win]
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
   host:
