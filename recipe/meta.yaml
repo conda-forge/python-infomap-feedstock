@@ -1,5 +1,6 @@
+{% set pytest_args = "--cov-fail-under=59 -k \"not (multilevel_modules_on_physical or multilevel_modules_states)\"" %}
 {% set pytest_args = '--cov-fail-under=59 -k "not (multilevel_modules_on_physical or multilevel_modules_states)"' %}
-{% set version = "2.6.1" %}
+{% set version = "2.7.0" %}
 
 package:
   name: python-infomap
@@ -8,13 +9,13 @@ package:
 source:
   - folder: dist
     url: https://pypi.io/packages/source/i/infomap/infomap-{{ version }}.tar.gz
-    sha256: 5fb76e8845b41c80e8a1bc522d518e5b233a1c893db11ebc6a5b3dc68ada711b
+    sha256: 01321ab3022ad4ce8b7b5febad520f5a3b37b9ea51275be65216d2914c5d57d8
   - folder: src
     url: https://github.com/mapequation/infomap/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: b43b2f13e5142c67df1b8f4742c0ed1c873339a7306c959b09a743a2ee16ab75
+    sha256: 51d7e4c3552e6973c4bfb4d00637612eafa9f72c0cfd12ec3725570d62a8ba02
 
 build:
-  number: 1
+  number: 0
   script: cd dist && {{ PYTHON }} -m pip install . -vv
   entry_points:
     - infomap = infomap:main
