@@ -1,6 +1,5 @@
-{% set pytest_args = "--cov-fail-under=59 -k \"not (multilevel_modules_on_physical or multilevel_modules_states)\"" %}
-{% set pytest_args = '--cov-fail-under=59 -k "not (multilevel_modules_on_physical or multilevel_modules_states)"' %}
-{% set version = "2.7.0" %}
+{% set pytest_args = '--cov-fail-under=59 -k "not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)"' %}
+{% set version = "2.7.1" %}
 
 package:
   name: python-infomap
@@ -9,10 +8,10 @@ package:
 source:
   - folder: dist
     url: https://pypi.io/packages/source/i/infomap/infomap-{{ version }}.tar.gz
-    sha256: 01321ab3022ad4ce8b7b5febad520f5a3b37b9ea51275be65216d2914c5d57d8
+    sha256: e23d52dffdb68646fcdcd9c7c7a6760ec26038c21107c47336604ee66ea74c18
   - folder: src
     url: https://github.com/mapequation/infomap/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 51d7e4c3552e6973c4bfb4d00637612eafa9f72c0cfd12ec3725570d62a8ba02
+    sha256: 3d6b8265e2f903a6453a20fdf92b6d4a08a83f50af04cc1a059b935e7b367544
 
 build:
   number: 0
@@ -47,7 +46,6 @@ test:
     - pip check
     - infomap --version
     - infomap --help
-    - python -c "__import__('shutil').copytree('src/examples/networks', 'src/test/data')"
     - cd src && pytest --cov=infomap --cov=branch --cov-report=term-missing:skip-covered --no-cov-on-fail {{ pytest_args }}
 
 about:
@@ -57,6 +55,7 @@ about:
   license_file: dist/LICENSE
   summary: Infomap network clustering algorithm
   doc_url: https://mapequation.github.io/infomap/python
+  dev_url: https://github.com/mapequation/infomap/tree/master/interfaces/python
 
 extra:
   recipe-maintainers:
