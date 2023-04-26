@@ -1,5 +1,3 @@
-{% set pytest_args = "--cov-fail-under=59 -k \"not (multilevel_modules_on_physical or multilevel_modules_states)\"" %}
-{% set pytest_args = "--cov-fail-under=59 -k \"not (multilevel_modules_on_physical or multilevel_modules_states)\"" %}
 {% set pytest_args = '--cov-fail-under=59 -k "not (multilevel_modules_on_physical or multilevel_modules_states)"' %}
 {% set version = "2.7.1" %}
 
@@ -48,7 +46,6 @@ test:
     - pip check
     - infomap --version
     - infomap --help
-    - python -c "__import__('shutil').copytree('src/examples/networks', 'src/test/data')"
     - cd src && pytest --cov=infomap --cov=branch --cov-report=term-missing:skip-covered --no-cov-on-fail {{ pytest_args }}
 
 about:
@@ -58,7 +55,9 @@ about:
   license_file: dist/LICENSE
   summary: Infomap network clustering algorithm
   doc_url: https://mapequation.github.io/infomap/python
+  dev_url: https://github.com/mapequation/infomap/tree/master/interfaces/python
 
 extra:
   recipe-maintainers:
     - bollwyvl
+
