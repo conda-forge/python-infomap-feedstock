@@ -9,6 +9,8 @@ Package license: AGPL-3.0-or-later
 
 Summary: Infomap network clustering algorithm
 
+Development: https://github.com/mapequation/infomap/tree/master/interfaces/python
+
 Documentation: https://mapequation.github.io/infomap/python
 
 Current build status
