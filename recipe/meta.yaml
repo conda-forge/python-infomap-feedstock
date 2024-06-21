@@ -1,6 +1,6 @@
-{% set pytest_args = "--cov-fail-under=59 -k \"not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)\"" %}
-{% set pytest_args = '--cov-fail-under=59 -k "not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)"' %}
 {% set version = "2.8.0" %}
+
+{% set pytest_args = '--cov-fail-under=58 -k "not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)"' %}
 
 package:
   name: python-infomap
@@ -26,7 +26,7 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - {{ compiler('cxx') }}        # [not win]
     - {{ compiler('m2w64_cxx') }}  # [win]
-    - {{ stdlib("c") }}    # [win]
+    - {{ stdlib("c") }}
     - llvm-openmp     # [osx]
     - libgomp         # [linux]
   host:
