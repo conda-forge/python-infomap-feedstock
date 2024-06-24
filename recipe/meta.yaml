@@ -52,8 +52,8 @@ test:
 
 about:
   home: https://www.mapequation.org/infomap
-  license: AGPL-3.0-or-later
-  license_family: AGPL
+  license: GPL-3.0-or-later
+  license_family: GPL
   license_file: dist/LICENSE
   summary: Infomap network clustering algorithm
   doc_url: https://mapequation.github.io/infomap/python
