@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/python-infomap-
 
 Home: https://www.mapequation.org/infomap
 
-Package license: AGPL-3.0-or-later
+Package license: GPL-3.0-or-later
 
 Summary: Infomap network clustering algorithm
 
