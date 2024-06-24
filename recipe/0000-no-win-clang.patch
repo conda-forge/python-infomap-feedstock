@@ -1,18 +1,14 @@
 diff --git a/setup.py b/setup.py
-index 01885c3..62c6d47 100644
+index 01885c3..423ecfd 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -64,9 +64,10 @@ def have_openmp():
-     compiler = get_compiler()
-     compile_args = ["-fopenmp"]
+@@ -22,6 +22,9 @@ def get_compiler():
  
--    if is_clang():
--        compile_args.insert(0, "-Xpreprocessor")
--        compile_args.append("-lomp")
+ 
+ def is_clang():
 +    # [conda-forge]: will not be `clang` on windows
-+    # if is_clang():
-+    #     compile_args.insert(0, "-Xpreprocessor")
-+    #     compile_args.append("-lomp")
++    if os.name.startswith("win"):
++        return False
+     return b"clang" in subprocess.check_output([get_compiler(), "--version"])
  
-     if have_homebrew():
-         compile_args.extend(get_homebrew_include())
+ 
