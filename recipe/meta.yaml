@@ -17,7 +17,7 @@ source:
     sha256: 592c5d0fb355fe716d33cfe11d038d9cd0bc57cb8633efcded03191365efb184
 
 build:
-  number: 0
+  number: 1
   script: cd dist && {{ PYTHON }} -m pip install . -vv
   entry_points:
     - infomap = infomap:main
