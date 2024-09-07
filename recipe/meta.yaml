@@ -26,8 +26,7 @@ requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - {{ compiler('cxx') }}        # [not win]
-    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ compiler('cxx') }}
     - {{ stdlib("c") }}
     - llvm-openmp     # [osx]
     - libgomp         # [linux]
