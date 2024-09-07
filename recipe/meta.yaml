@@ -17,8 +17,8 @@ source:
     sha256: 592c5d0fb355fe716d33cfe11d038d9cd0bc57cb8633efcded03191365efb184
 
 build:
-  number: 0
-  script: cd dist && {{ PYTHON }} -m pip install . -vv
+  number: 1
+  script: cd dist && {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - infomap = infomap:main
 
@@ -26,14 +26,14 @@ requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - {{ compiler('cxx') }}        # [not win]
-    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ compiler('cxx') }}
     - {{ stdlib("c") }}
     - llvm-openmp     # [osx]
     - libgomp         # [linux]
   host:
     - python
     - pip
+    - setuptools
   run:
     - python
 
