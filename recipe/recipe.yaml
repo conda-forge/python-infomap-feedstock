@@ -1,0 +1,80 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+schema_version: 1
+
+context:
+  version: 2.8.0
+
+package:
+  name: python-infomap
+  version: ${{ version }}
+
+source:
+  - url: https://pypi.org/packages/source/i/infomap/infomap-${{ version }}.tar.gz
+    sha256: 17eff0882afa5de9bf68f2fba013b06be43d618191859e6723e008e744944e36
+    target_directory: dist
+    patches:
+      - if: win
+        then: 0000-no-win-clang.patch
+  - url: https://github.com/mapequation/infomap/archive/refs/tags/v${{ version }}.tar.gz
+    sha256: 592c5d0fb355fe716d33cfe11d038d9cd0bc57cb8633efcded03191365efb184
+    target_directory: src
+
+build:
+  number: 2
+  script:
+    - cd dist
+    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
+  python:
+    entry_points:
+      - infomap = infomap:main
+
+requirements:
+  build:
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib("c") }}
+    - if: build_platform != target_platform
+      then:
+        - cross-python_${{ target_platform }}
+        - python
+    - if: osx
+      then:
+        - llvm-openmp
+    - if: linux
+      then:
+        - libgomp
+  host:
+    - pip
+    - python
+    - setuptools
+  run:
+    - python
+
+tests:
+  - python:
+      imports: infomap
+      pip_check: true
+  - files:
+      source:
+        - src/test/
+        - src/examples/networks/
+    requirements:
+      run:
+        - pytest-cov
+    script:
+      - infomap --version
+      - infomap --help
+      - cd src
+      - coverage run --source=infomap --branch -m pytest -vv --tb=long --color=yes -k "not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)"
+      - coverage report --show-missing --skip-covered --fail-under=56
+
+about:
+  license: GPL-3.0-or-later
+  license_file: dist/LICENSE
+  summary: Infomap network clustering algorithm
+  homepage: https://www.mapequation.org/infomap
+  repository: https://github.com/mapequation/infomap/tree/master/interfaces/python
+  documentation: https://mapequation.github.io/infomap/python
+
+extra:
+  recipe-maintainers:
+    - bollwyvl
