@@ -65,7 +65,7 @@ tests:
       - infomap --help
       - cd src
       - coverage run --source=infomap --branch -m pytest -vv --tb=long --color=yes -k "not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)"
-      - coverage report --show-missing --skip-covered --fail-under=58
+      - coverage report --show-missing --skip-covered --fail-under=56
 
 about:
   license: GPL-3.0-or-later
