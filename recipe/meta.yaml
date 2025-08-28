@@ -8,7 +8,7 @@ package:
 
 source:
   - folder: dist
-    url: https://pypi.io/packages/source/i/infomap/infomap-{{ version }}.tar.gz
+    url: https://pypi.org/packages/source/i/infomap/infomap-{{ version }}.tar.gz
     sha256: 17eff0882afa5de9bf68f2fba013b06be43d618191859e6723e008e744944e36
     patches:                     # [win]
       - 0000-no-win-clang.patch  # [win]
@@ -17,7 +17,7 @@ source:
     sha256: 592c5d0fb355fe716d33cfe11d038d9cd0bc57cb8633efcded03191365efb184
 
 build:
-  number: 1
+  number: 2
   script: cd dist && {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - infomap = infomap:main
