@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "2.9.2"
+  version: "2.10.0"
 
 package:
   name: python-infomap
@@ -10,13 +10,13 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/i/infomap/infomap-${{ version }}.tar.gz
-    sha256: e0c61ded3531bcff019a024d6e37396e920db9ffdf43a6caca0b68b71e404036
+    sha256: f25b3052d3a6e43726388006ae304b78607752045abc947a4c69d8f2dfb24cea
     target_directory: dist
     patches:
       - if: win
         then: 0000-no-win-clang.patch
   - url: https://github.com/mapequation/infomap/archive/refs/tags/v${{ version }}.tar.gz
-    sha256: 2a94f10dd3974ebb2b5ffabae5c018b928e10926cb9b3d9ba77f5416e0a7c392
+    sha256: cca2d68a0e17ab0e78c46146d2075c177dbb05db395faaf69589e6500a3b249d
     target_directory: src
 
 build:
