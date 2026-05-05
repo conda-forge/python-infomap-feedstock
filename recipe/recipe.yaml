@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "2.10.0"
+  version: "2.10.1"
 
 package:
   name: python-infomap
@@ -10,17 +10,18 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/i/infomap/infomap-${{ version }}.tar.gz
-    sha256: f25b3052d3a6e43726388006ae304b78607752045abc947a4c69d8f2dfb24cea
+    sha256: 35c553afef376315e6466baf5f78f626942e312c9042f583749b606bd74c7ac9
     target_directory: dist
     patches:
       - if: win
         then: 0000-no-win-clang.patch
   - url: https://github.com/mapequation/infomap/archive/refs/tags/v${{ version }}.tar.gz
-    sha256: cca2d68a0e17ab0e78c46146d2075c177dbb05db395faaf69589e6500a3b249d
+    sha256: 0e7d6985d056373045713758e7bb62549576c4d11514fe63cc9c4da180799737
     target_directory: src
 
 build:
   number: 0
+  skip: match(python, "<3.11")
   script:
     - cd dist
     - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
@@ -69,7 +70,7 @@ tests:
 
 about:
   license: GPL-3.0-or-later
-  license_file: dist/LICENSE
+  license_file: dist/LICENSE_GPLv3.txt
   summary: Infomap network clustering algorithm
   homepage: https://www.mapequation.org/infomap
   repository: https://github.com/mapequation/infomap/tree/master/interfaces/python
