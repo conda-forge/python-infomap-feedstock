@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "2.9.2"
+  version: "2.10.1"
 
 package:
   name: python-infomap
@@ -10,17 +10,18 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/i/infomap/infomap-${{ version }}.tar.gz
-    sha256: e0c61ded3531bcff019a024d6e37396e920db9ffdf43a6caca0b68b71e404036
+    sha256: 35c553afef376315e6466baf5f78f626942e312c9042f583749b606bd74c7ac9
     target_directory: dist
     patches:
       - if: win
         then: 0000-no-win-clang.patch
   - url: https://github.com/mapequation/infomap/archive/refs/tags/v${{ version }}.tar.gz
-    sha256: 2a94f10dd3974ebb2b5ffabae5c018b928e10926cb9b3d9ba77f5416e0a7c392
+    sha256: 0e7d6985d056373045713758e7bb62549576c4d11514fe63cc9c4da180799737
     target_directory: src
 
 build:
   number: 0
+  skip: match(python, "<3.11")
   script:
     - cd dist
     - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
@@ -30,12 +31,8 @@ build:
 
 requirements:
   build:
-    - ${{ compiler('cxx') }}
+    - ${{ compiler("cxx") }}
     - ${{ stdlib("c") }}
-    - if: build_platform != target_platform
-      then:
-        - cross-python_${{ target_platform }}
-        - python
     - if: osx
       then:
         - llvm-openmp
@@ -55,21 +52,25 @@ tests:
       pip_check: true
   - files:
       source:
-        - src/test/
         - src/examples/networks/
+        - src/pyproject.toml
+        - src/scripts/benchmarks/
+        - src/scripts/build_config.py
+        - src/test/
     requirements:
       run:
+        - networkx
         - pytest-cov
     script:
       - infomap --version
       - infomap --help
       - cd src
       - coverage run --source=infomap --branch -m pytest -vv --tb=long --color=yes -k "not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)"
-      - coverage report --show-missing --skip-covered --fail-under=56
+      - coverage report --show-missing --skip-covered --fail-under=64
 
 about:
   license: GPL-3.0-or-later
-  license_file: dist/LICENSE
+  license_file: dist/LICENSE_GPLv3.txt
   summary: Infomap network clustering algorithm
   homepage: https://www.mapequation.org/infomap
   repository: https://github.com/mapequation/infomap/tree/master/interfaces/python
