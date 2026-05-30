@@ -60,6 +60,7 @@ tests:
     requirements:
       run:
         - networkx
+        - numpy
         - pytest-cov
     script:
       - infomap --version
