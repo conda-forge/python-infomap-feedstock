@@ -56,6 +56,7 @@ tests:
         - src/pyproject.toml
         - src/scripts/benchmarks/
         - src/scripts/build_config.py
+        - src/scripts/parameter_catalog.py
         - src/test/
     requirements:
       run:
