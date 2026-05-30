@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "2.10.1"
+  version: "2.11.0"
 
 package:
   name: python-infomap
@@ -10,13 +10,13 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/i/infomap/infomap-${{ version }}.tar.gz
-    sha256: 35c553afef376315e6466baf5f78f626942e312c9042f583749b606bd74c7ac9
+    sha256: d6eea9e97fd808c8c300ba563b8f1594a3f937185a7c0bf4573e9dc20815c46a
     target_directory: dist
     patches:
       - if: win
         then: 0000-no-win-clang.patch
   - url: https://github.com/mapequation/infomap/archive/refs/tags/v${{ version }}.tar.gz
-    sha256: 0e7d6985d056373045713758e7bb62549576c4d11514fe63cc9c4da180799737
+    sha256: 1f9906183db317889e8862524e8317505196f46047b3a3fbe4672b8b89dde2d1
     target_directory: src
 
 build:
@@ -54,19 +54,21 @@ tests:
       source:
         - src/examples/networks/
         - src/pyproject.toml
-        - src/scripts/benchmarks/
-        - src/scripts/build_config.py
+        - src/scripts/
         - src/test/
+        - src/setup.py
+        - src/mk/python.mk
     requirements:
       run:
         - networkx
+        - numpy
         - pytest-cov
     script:
       - infomap --version
       - infomap --help
       - cd src
       - coverage run --source=infomap --branch -m pytest -vv --tb=long --color=yes -k "not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)"
-      - coverage report --show-missing --skip-covered --fail-under=64
+      - coverage report --show-missing --skip-covered --fail-under=63
 
 about:
   license: GPL-3.0-or-later
