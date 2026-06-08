@@ -3,6 +3,9 @@ schema_version: 1
 
 context:
   version: "2.12.0"
+  grep_version: ${{ "grep -iE" if unix else "findstr" }} "^${{ version | replace(".", "\\.") }}$"
+  pytest_k: not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)
+  cov_fail_under: "63"
 
 package:
   name: python-infomap
@@ -21,13 +24,13 @@ source:
 
 build:
   number: 0
-  skip: match(python, "<3.11")
   script:
     - cd dist
     - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
   python:
     entry_points:
       - infomap = infomap:main
+      - infomap-shell = infomap.shell:main
 
 requirements:
   build:
@@ -42,7 +45,7 @@ requirements:
   host:
     - pip
     - python
-    - setuptools
+    - setuptools >=68
   run:
     - python
 
@@ -60,21 +63,30 @@ tests:
         - src/mk/python.mk
     requirements:
       run:
+        - anndata
+        - coverage
+        - igraph
+        - jsonschema >=4.18
         - networkx
-        - numpy
-        - pytest-cov
+        - pyarrow
+        - pytest
+        - referencing
+        - scipy
     script:
       - infomap --version
+      - infomap-shell --version
+      - infomap --version | ${{ grep_version }}
+      - infomap-shell --version | ${{ grep_version }}
       - infomap --help
       - cd src
-      - coverage run --source=infomap --branch -m pytest -vv --tb=long --color=yes -k "not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)"
-      - coverage report --show-missing --skip-covered --fail-under=63
+      - coverage run --source=infomap --branch -m pytest -vv --tb=long --color=yes -k "${{ pytest_k }}"
+      - coverage report --show-missing --skip-covered --fail-under=${{ cov_fail_under }}
 
 about:
   license: GPL-3.0-or-later
   license_file: dist/LICENSE_GPLv3.txt
   summary: Infomap network clustering algorithm
-  homepage: https://www.mapequation.org/infomap
+  homepage: https://pypi.org/project/infomap
   repository: https://github.com/mapequation/infomap/tree/master/interfaces/python
   documentation: https://mapequation.github.io/infomap/python
 
