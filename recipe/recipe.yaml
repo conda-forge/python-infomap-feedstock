@@ -5,7 +5,7 @@ context:
   version: "2.12.0"
   python_min: "3.11"
   pytest_k: not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)
-  cov_fail_under: "63"
+  cov_fail_under: "72"
 
 package:
   name: python-infomap
