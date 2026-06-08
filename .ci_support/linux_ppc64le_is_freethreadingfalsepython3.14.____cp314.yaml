@@ -12,11 +12,16 @@ cxx_compiler_version:
 - '14'
 docker_image:
 - quay.io/condaforge/linux-anvil-ppc64le:alma9
+is_freethreading:
+- false
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.12.* *_cpython
+- 3.14.* *_cp314
 target_platform:
 - linux-ppc64le
+zip_keys:
+- - python
+  - is_freethreading
