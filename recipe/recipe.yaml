@@ -5,7 +5,8 @@ context:
   version: "2.12.0"
   python_min: "3.11"
   pytest_k: not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)
-  cov_fail_under: "72"
+  no_anndata: ${{ is_freethreading and target_platform in ["linux-ppc64le", "osx-64"] }}
+  cov_fail_under: ${{ "62" if no_anndata else "72" }}
 
 package:
   name: python-infomap
@@ -65,7 +66,6 @@ tests:
         - src/test/
     requirements:
       run:
-        - anndata
         - coverage
         - igraph
         - jsonschema >=4.18
@@ -74,6 +74,9 @@ tests:
         - pytest
         - referencing
         - scipy
+        - if: not no_anndata
+          then:
+            - anndata
     script:
       - infomap --version
       - infomap --version | ${{ "grep -iE" if unix else "findstr" }} " ${{ version | replace(".", "\\.") }} "
