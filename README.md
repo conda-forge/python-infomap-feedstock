@@ -3,7 +3,7 @@ About python-infomap-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/python-infomap-feedstock/blob/main/LICENSE.txt)
 
-Home: https://www.mapequation.org/infomap
+Home: https://pypi.org/project/infomap
 
 Package license: GPL-3.0-or-later
 

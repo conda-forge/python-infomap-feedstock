@@ -3,6 +3,7 @@ schema_version: 1
 
 context:
   version: "2.12.0"
+  python_min: "3.11"
   grep_version: ${{ "grep -iE" if unix else "findstr" }} "^${{ version | replace(".", "\\.") }}$"
   pytest_k: not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)
   cov_fail_under: "63"
@@ -24,6 +25,7 @@ source:
 
 build:
   number: 0
+  skip: match(python, "<" ~ python_min)
   script:
     - cd dist
     - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
