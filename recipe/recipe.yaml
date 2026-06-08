@@ -4,7 +4,6 @@ schema_version: 1
 context:
   version: "2.12.0"
   python_min: "3.11"
-  grep_version: ${{ "grep -iE" if unix else "findstr" }} "^${{ version | replace(".", "\\.") }}$"
   pytest_k: not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)
   cov_fail_under: "63"
 
@@ -58,11 +57,12 @@ tests:
   - files:
       source:
         - src/examples/networks/
+        - src/mk/python.mk
         - src/pyproject.toml
         - src/scripts/
-        - src/test/
         - src/setup.py
-        - src/mk/python.mk
+        - src/src/
+        - src/test/
     requirements:
       run:
         - anndata
@@ -76,10 +76,9 @@ tests:
         - scipy
     script:
       - infomap --version
-      - infomap-shell --version
-      - infomap --version | ${{ grep_version }}
-      - infomap-shell --version | ${{ grep_version }}
+      - infomap --version | ${{ "grep -iE" if unix else "findstr" }} " ${{ version | replace(".", "\\.") }} "
       - infomap --help
+      - infomap-shell --help
       - cd src
       - coverage run --source=infomap --branch -m pytest -vv --tb=long --color=yes -k "${{ pytest_k }}"
       - coverage report --show-missing --skip-covered --fail-under=${{ cov_fail_under }}
