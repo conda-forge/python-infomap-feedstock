@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "2.12.0"
+  version: "2.13.0"
   python_min: "3.11"
   pytest_k: not (multilevel_modules_on_physical or multilevel_modules_states or precomputed)
   no_anndata: ${{ is_freethreading and target_platform in ["linux-ppc64le", "osx-64"] }}
@@ -14,13 +14,13 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/i/infomap/infomap-${{ version }}.tar.gz
-    sha256: fc3da6567d054a9daa2f047115c023f8e15853529a286a349da0ee3b13644e76
+    sha256: e15d2d5541208018cb22ed413c938009de87683537e8a96e8f7f7caba17feb9b
     target_directory: dist
     patches:
       - if: win
         then: 0000-no-win-clang.patch
   - url: https://github.com/mapequation/infomap/archive/refs/tags/v${{ version }}.tar.gz
-    sha256: 3e470218f2e9e4b7d6f28fe44e3f193ce0ac85b6aece115dac2cbfcb0717f0f4
+    sha256: fe0734ce005b4ba9c9db665bbce985eddc03580dcb7be1d509e6d60727398a36
     target_directory: src
 
 build:
