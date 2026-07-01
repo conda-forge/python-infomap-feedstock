@@ -70,6 +70,7 @@ tests:
         - igraph
         - jsonschema >=4.18
         - networkx
+        - pandas
         - pyarrow
         - pytest
         - referencing
