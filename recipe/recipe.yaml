@@ -4,7 +4,7 @@ schema_version: 1
 context:
   version: "2.14.0"
   python_min: "3.11"
-  pytest_k: not (multilevel_modules_on_physical or multilevel_modules_states or precomputed or cli_main_exits_130_on_sigint)
+  pytest_k: not (multilevel_modules_on_physical or multilevel_modules_states or precomputed or cli_main_exits_130_on_sigint or marker_block_present)
   no_anndata: ${{ is_freethreading and target_platform in ["linux-ppc64le", "osx-64"] }}
   cov_fail_under: ${{ "62" if no_anndata else "72" }}
 
