@@ -7,9 +7,8 @@ context:
   pytest_k_all: |-
     multilevel_modules_on_physical or multilevel_modules_states or precomputed or cli_main_exits_130_on_sigint or marker_block_present
   pytest_k_win: |-
-    or (logging and (propagated_root_handlers_do_not_engage_routing or routing_disengages_when_handlers_are_removed))
-    or (run_functional and (run_options_mapping_silent_false_prints_engine_log or run_silent_false_override_prints_engine_log or stateful_infomap_silent_false_prints_engine_log))
-  pytest_k: not (${{ pytest_k_all }} ${{ pytest_k_win if win }})
+    or (logging and (propagated_root_handlers_do_not_engage_routing or routing_disengages_when_handlers_are_removed)) or (run_functional and (run_options_mapping_silent_false_prints_engine_log or run_silent_false_override_prints_engine_log or stateful_infomap_silent_false_prints_engine_log))
+  pytest_k: not ( ${{ pytest_k_all }} ${{ pytest_k_win if win }} )
   no_anndata: ${{ is_freethreading and target_platform in ["linux-ppc64le", "osx-64"] }}
   cov_fail_under: ${{ "62" if no_anndata else "72" }}
 
