@@ -58,6 +58,7 @@ tests:
   - files:
       source:
         - src/examples/networks/
+        - src/interfaces/parameters/overrides.json
         - src/mk/python.mk
         - src/pyproject.toml
         - src/scripts/
