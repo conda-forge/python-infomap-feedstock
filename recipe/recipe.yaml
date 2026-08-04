@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "2.15.0"
+  version: "2.15.1"
   python_min: "3.11"
   pytest_k_all: |-
     multilevel_modules_on_physical or multilevel_modules_states or precomputed or cli_main_exits_130_on_sigint or marker_block_present
@@ -18,13 +18,13 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/i/infomap/infomap-${{ version }}.tar.gz
-    sha256: 144c8d73fcf7acd017eb5f0e539c1eb0391db7e81381470a2c432aab15bb4041
+    sha256: fc5e702130609a08bc903707f0fca3b8f585ba4b16ef730ee93c7bb9e2d80c66
     target_directory: dist
     patches:
       - if: win
         then: 0000-no-win-clang.patch
   - url: https://github.com/mapequation/infomap/archive/refs/tags/v${{ version }}.tar.gz
-    sha256: 4d3b72852f335495357ab568de4747e4f0bbb4904169d8eeda30c8642859f6c1
+    sha256: 6988eaffab6b8416a5fd7bfa4d6d6bb517ca153f335a04ff2f669d3a71fb7925
     target_directory: src
 
 build:
