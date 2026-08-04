@@ -62,6 +62,7 @@ tests:
   - files:
       source:
         - src/examples/networks/
+        - src/interfaces/js/generated/parameters.json
         - src/interfaces/parameters/overrides.json
         - src/mk/python.mk
         - src/pyproject.toml
