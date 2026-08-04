@@ -65,6 +65,7 @@ tests:
         - src/interfaces/js/generated/parameters.json
         - src/interfaces/parameters/overrides.json
         - src/mk/python.mk
+        - src/mk/r.mk
         - src/pyproject.toml
         - src/scripts/
         - src/setup.py
