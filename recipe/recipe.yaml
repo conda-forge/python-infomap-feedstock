@@ -82,10 +82,14 @@ tests:
         - pytest
         - referencing
         - scipy
+        - pyyaml
         - if: not no_anndata
           then:
             - anndata
     script:
+      env:
+        PYTEST_ADDOPTS: -W "ignore::RuntimeWarning::"
+      content:
       - infomap --version
       - infomap --version | ${{ "grep -iE" if unix else "findstr" }} " ${{ version | replace(".", "\\.") }} "
       - infomap --help
