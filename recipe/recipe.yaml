@@ -104,7 +104,7 @@ tests:
         PYTEST_ADDOPTS: -W "ignore::RuntimeWarning::"
       content:
         - infomap --version
-        - infomap --version | ${{ "grep -iE" if unix else "findstr" }} " ${{ version | replace(".", "\\.") }} "
+        - infomap --version | ${{ "grep -iE " if unix else "findstr /r /c:" }}${{ version | replace(".", "\\.") }}
         - infomap --help
         - infomap-shell --help
         - cd src
