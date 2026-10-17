@@ -28,7 +28,7 @@ source:
     target_directory: src
 
 build:
-  number: 0
+  number: 1
   skip: match(python, "<" ~ python_min)
   script:
     - cd dist
@@ -90,13 +90,13 @@ tests:
       env:
         PYTEST_ADDOPTS: -W "ignore::RuntimeWarning::"
       content:
-      - infomap --version
-      - infomap --version | ${{ "grep -iE" if unix else "findstr" }} " ${{ version | replace(".", "\\.") }} "
-      - infomap --help
-      - infomap-shell --help
-      - cd src
-      - coverage run --source=infomap --branch -m pytest -vv --tb=long --color=yes -k "${{ pytest_k }}"
-      - coverage report --show-missing --skip-covered --fail-under=${{ cov_fail_under }}
+        - infomap --version
+        - infomap --version | ${{ "grep -iE" if unix else "findstr" }} " ${{ version | replace(".", "\\.") }} "
+        - infomap --help
+        - infomap-shell --help
+        - cd src
+        - coverage run --source=infomap --branch -m pytest -vv --tb=long --color=yes -k "${{ pytest_k }}"
+        - coverage report --show-missing --skip-covered --fail-under=${{ cov_fail_under }}
 
 about:
   license: GPL-3.0-or-later
