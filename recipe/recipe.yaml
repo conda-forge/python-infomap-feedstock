@@ -3,7 +3,6 @@ schema_version: 1
 
 context:
   version: "2.15.1"
-  python_min: "3.11"
   pytest_k_all: |-
     multilevel_modules_on_physical or multilevel_modules_states or precomputed or cli_main_exits_130_on_sigint or marker_block_present
   pytest_k_win: |-
@@ -28,11 +27,11 @@ source:
     target_directory: src
 
 build:
-  number: 0
+  number: 1
   skip: match(python, "<" ~ python_min)
   script:
     - cd dist
-    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
+    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check --check-build-dependencies
   python:
     entry_points:
       - infomap = infomap:main
@@ -56,6 +55,20 @@ requirements:
     - python
 
 tests:
+  - package_contents:
+      strict: true
+      bin:
+        - infomap
+        - infomap-shell
+      files:
+        - etc/conda/test-files/python-infomap/**
+        - if: win
+          then:
+            - Scripts/infomap-script.py
+            - Scripts/infomap-shell-script.py
+      site_packages:
+        - infomap/**
+        - infomap-${{ version }}.dist-info/**
   - python:
       imports: infomap
       pip_check: true
@@ -90,13 +103,13 @@ tests:
       env:
         PYTEST_ADDOPTS: -W "ignore::RuntimeWarning::"
       content:
-      - infomap --version
-      - infomap --version | ${{ "grep -iE" if unix else "findstr" }} " ${{ version | replace(".", "\\.") }} "
-      - infomap --help
-      - infomap-shell --help
-      - cd src
-      - coverage run --source=infomap --branch -m pytest -vv --tb=long --color=yes -k "${{ pytest_k }}"
-      - coverage report --show-missing --skip-covered --fail-under=${{ cov_fail_under }}
+        - infomap --version
+        - infomap --version | ${{ "grep -iE " if unix else "findstr /r /c:" }}${{ version | replace(".", "\\.") }}
+        - infomap --help
+        - infomap-shell --help
+        - cd src
+        - coverage run --source=infomap --branch -m pytest -vv --tb=long --color=yes -k "${{ pytest_k }}"
+        - coverage report --show-missing --skip-covered --fail-under=${{ cov_fail_under }}
 
 about:
   license: GPL-3.0-or-later
