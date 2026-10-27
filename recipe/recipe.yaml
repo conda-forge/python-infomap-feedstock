@@ -87,15 +87,17 @@ tests:
     requirements:
       run:
         - coverage
+        - hypothesis
         - igraph
         - jsonschema >=4.18
         - networkx
         - pandas
         - pyarrow
         - pytest
+        - pyyaml
         - referencing
         - scipy
-        - pyyaml
+        - threadpoolctl
         - if: not no_anndata
           then:
             - anndata
