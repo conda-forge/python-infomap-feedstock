@@ -3,6 +3,7 @@ schema_version: 1
 
 context:
   version: "2.16.0"
+  unlink_tests: python/test_ci_workflows.py
   pytest_k_all: |-
     multilevel_modules_on_physical or multilevel_modules_states or precomputed or cli_main_exits_130_on_sigint or marker_block_present
   pytest_k_win: |-
@@ -29,6 +30,7 @@ source:
 build:
   number: 0
   script:
+    - ${{ PYTHON }} -c "import os; [os.unlink(f'src/test/{p}') for p in '''${{ unlink_tests }}'''.split()]"
     - cd dist
     - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check --check-build-dependencies
   python:
@@ -80,6 +82,7 @@ tests:
         - src/mk/python.mk
         - src/mk/r.mk
         - src/pyproject.toml
+        - src/RESULT_CHANGES.csv
         - src/scripts/
         - src/setup.py
         - src/src/
