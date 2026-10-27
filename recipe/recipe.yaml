@@ -28,7 +28,6 @@ source:
 
 build:
   number: 0
-  skip: match(python, "<" ~ python_min)
   script:
     - cd dist
     - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check --check-build-dependencies
@@ -39,6 +38,7 @@ build:
 
 requirements:
   build:
+    - ${{ compiler("c") }}
     - ${{ compiler("cxx") }}
     - ${{ stdlib("c") }}
     - if: osx
@@ -50,7 +50,7 @@ requirements:
   host:
     - pip
     - python
-    - setuptools >=68
+    - setuptools >=77
   run:
     - python
 
