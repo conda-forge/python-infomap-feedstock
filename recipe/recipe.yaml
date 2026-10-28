@@ -3,7 +3,7 @@ schema_version: 1
 
 context:
   version: "2.16.0"
-  unlink_tests: python/test_ci_workflows.py
+  unlink_tests: python/test_ci_workflows.py python/test_reference_edits.py
   pytest_k_all: |-
     multilevel_modules_on_physical or multilevel_modules_states or precomputed or cli_main_exits_130_on_sigint or marker_block_present
   pytest_k_win: |-
